@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import Socket from './Socket';
 import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react';
 import '../App.css';
@@ -33,10 +33,23 @@ const Chat = ({name}:any) => {
 
     });
 
+    const divRef = useRef<null | HTMLDivElement>(null);
+    useEffect(() => {
+        divRef.current?.scrollIntoView({behavior: 'smooth'});
+    });
+
     const submit = (e:any) => {
         e.preventDefault();
-        Socket.emit('message', name, message);
-        setMessage('');
+        if(message !== ''){
+            Socket.emit('message', name, message);
+            setMessage('');
+        }
+    }
+
+    const sendMessage = (e:any) => {
+        if(e.keyCode === 13) {
+            submit(e);
+        }
     }
 
     return (
@@ -63,7 +76,7 @@ const Chat = ({name}:any) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
                     <div className="card shadow">
                         <div className="card-header">Chat</div>
                         <div className="card-body height3">
@@ -72,21 +85,24 @@ const Chat = ({name}:any) => {
                                     <li className={ e.name == name ? 'out' : 'in' } key={i}>
                                         <div className="chat-body">
                                             <div className="chat-message">
-                                                <h5>{e.name}</h5>
+                                                <div className="text-center">
+                                                    <h5>{e.name}</h5>
+                                                </div>
                                                 <p>{e.message}</p>
                                             </div>
                                         </div>
                                     </li>
                                 )}
+                                <div ref={divRef}></div>
                             </ul>
                             <hr/>
                             <form onSubmit={submit} className="row">
                                 <div className="col-9">
-                                    <textarea value={message} rows={1} cols={1} className={"form-control"} onChange={e => setMessage(e.target.value)}></textarea>
+                                    <textarea value={message} onKeyDown={sendMessage} id="textMessage" rows={1} cols={1} className={"form-control"} onChange={e => setMessage(e.target.value)}></textarea>
                                 </div>
                                 <div className="col-3">
                                     <div className="row">
-                                        <div className="col-4">
+                                        <div className="col-6">
                                             <div className="dropdown">
                                                 <button className="btn btn-outline-dark btn-small" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i className="far fa-smile-beam"></i></button>
@@ -95,8 +111,8 @@ const Chat = ({name}:any) => {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="col-8">
-                                            <button className="btn btn-dark">Send</button>
+                                        <div className="col-6">
+                                            <button className="btn btn-dark"><i className="far fa-paper-plane"></i></button>
                                         </div>
                                     </div>
                                 </div>
