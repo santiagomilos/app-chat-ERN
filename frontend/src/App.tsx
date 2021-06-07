@@ -74,12 +74,12 @@ function App() {
         // });
 
         let url = `${window.location.protocol}//${window.location.hostname}:3000/subscription`;
-       await fetch(url, {
+        await fetch(url, {
             method: 'POST',
-            body: JSON.stringify(subscription),
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(subscription),
         });
     }
 
