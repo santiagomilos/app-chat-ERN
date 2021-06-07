@@ -28,10 +28,8 @@ function App() {
     const subscription = async () => {
 
         //service worker
-        const register = await navigator.serviceWorker.register('./worker.js', {
-            scope: '/'
-        });
-
+        const register = await navigator.serviceWorker.register('./worker.js');
+        
         const subscription = await register.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
