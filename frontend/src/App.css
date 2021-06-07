@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+textarea {
+  resize: none;
+}
+
+.input-chat{
+  background-color: #17202B !important;
+  padding: 0 !important;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  transform: translateY(-360px);
+  z-index: 1;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown:hover .dropdown-content {display: block;}

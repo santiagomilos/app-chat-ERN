@@ -1,7 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Socket from './components/Socket';
 import Chat from "./components/Chat";
+import  './worker';
+import {chatOpen} from './Anime';
 import './App.css';
+
 
 function App() {
 
@@ -34,7 +37,8 @@ function App() {
             applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
         });
 
-       await fetch('/subscription', {
+        let url = `${window.location.protocol}//${window.location.hostname}:3000/subscription`;
+       await fetch(url, {
             method: 'POST',
             body: JSON.stringify(subscription),
             headers: {
@@ -52,7 +56,8 @@ function App() {
       e.preventDefault();
       if(name !== '') {
 
-          await fetch('/join',{
+          let url = `${window.location.protocol}//${window.location.hostname}:3000/join`;
+          await fetch(url,{
               method: 'POST',
               body: JSON.stringify({
                   name: name
@@ -60,10 +65,10 @@ function App() {
               headers: {
                   "Content-Type": "application/json"
               }
-          })
-
+          });
           setRegistered(true);
           Socket.emit('connected', name);
+          chatOpen();
       }else{
           setRegistered(false);
       }
@@ -74,14 +79,14 @@ function App() {
         {
             !registered &&
 
-            <div className="container content">
+            <div className="container content form-name">
                 <div className="row h-100 justify-content-center">
                     <div className="col-6 my-auto">
                         <div className="card card-block shadow">
                             <div className="card-body">
                                 <form onSubmit={register}>
                                     <label className="form-label">Name</label>
-                                    <input className="form-control" type="text" value={name} onChange={e => setName(e.target.value)}/>
+                                    <input className="form-control " type="text" value={name} onChange={e => setName(e.target.value)}/>
                                 </form>
                             </div>
                         </div>

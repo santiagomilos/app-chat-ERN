@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 
-let socket = io(window.location.origin, { transports : ['websocket'] });
+let url = `${window.location.protocol}//${window.location.hostname}:3000`;
+let socket = io(url, { transports : ['websocket'] });
 
 export default socket;

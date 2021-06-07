@@ -1,6 +1,7 @@
 import React, { useState,useEffect,useRef } from "react";
 import Socket from './Socket';
 import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react';
+import {sendMessageAnime} from "../Anime";
 import '../App.css';
 
 const Chat = ({name}:any) => {
@@ -9,7 +10,9 @@ const Chat = ({name}:any) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([] as any);
 
-    const onEmojiClick = (event:any, emojiObject:any) => {
+    sendMessageAnime();
+
+    const onEmojiClick = (e:any, emojiObject:any) => {
         setMessage(`${message} ${emojiObject.emoji}`);
     };
 
@@ -55,7 +58,7 @@ const Chat = ({name}:any) => {
     return (
         <div className="container content">
             <div className="row justify-content-center">
-                <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                <div id="people-anime" className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 pb-5 pb-lg-0 people-anime">
                     <div className="card shadow">
                         <div className="card-header">People</div>
                         <div className="card-body height3">
@@ -63,8 +66,8 @@ const Chat = ({name}:any) => {
                                 <ul className="list-unstyled">
                                     {names.map((e:any, i:any) =>
                                         <li key={i}>
-                                           <div><i className="fas fa-arrow-right"></i><span className="fw-bold"> {e}</span></div>
-                                            <i className="fa fa-circle online"></i> <span className="fw-light"> online</span>
+                                           <i className="fa fa-circle online"/>
+                                            <span className="fw-bold"> {e}</span>
                                             <hr/>
                                         </li>
                                     )}
@@ -76,11 +79,11 @@ const Chat = ({name}:any) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+                <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 chat-anime">
                     <div className="card shadow">
                         <div className="card-header">Chat</div>
                         <div className="card-body height3">
-                            <ul className="chat-list">
+                            <ul className="chat-list" id="chat-list">
                                 {messages.map((e:any, i:any) =>
                                     <li className={ e.name == name ? 'out' : 'in' } key={i}>
                                         <div className="chat-body">
@@ -97,24 +100,20 @@ const Chat = ({name}:any) => {
                             </ul>
                             <hr/>
                             <form onSubmit={submit} className="row">
-                                <div className="col-9">
-                                    <textarea value={message} onKeyDown={sendMessage} id="textMessage" rows={1} cols={1} className={"form-control"} onChange={e => setMessage(e.target.value)}></textarea>
-                                </div>
-                                <div className="col-3">
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <div className="dropdown">
-                                                <button className="btn btn-outline-dark btn-small" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i className="far fa-smile-beam"></i></button>
-                                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <Picker onEmojiClick={onEmojiClick} skinTone={ SKIN_TONE_MEDIUM_LIGHT } groupVisibility={{recently_used: false}}/>
-                                                </ul>
+                                <div className="col-lg-10 col-9">
+                                    <div className="input-group">
+                                        <div className="input-group-text input-chat dropdown" id="btnGroupAddon">
+                                            <a className="btn text-white"><i className="far fa-laugh-beam"></i></a>
+                                            <div className="dropdown-content">
+                                                <Picker onEmojiClick={onEmojiClick} skinTone={ SKIN_TONE_MEDIUM_LIGHT } groupVisibility={{recently_used: false}}/>
                                             </div>
                                         </div>
-                                        <div className="col-6">
-                                            <button className="btn btn-dark"><i className="far fa-paper-plane"></i></button>
-                                        </div>
+                                        <textarea value={message} onKeyDown={sendMessage} id="textMessage" rows={1} cols={1}
+                                                  className={"form-control"} onChange={e => setMessage(e.target.value)}></textarea>
                                     </div>
+                                </div>
+                                <div className="col-lg-2 col-3">
+                                    <button className="btn btn-dark"><i className="far fa-paper-plane"></i></button>
                                 </div>
                             </form>
                         </div>

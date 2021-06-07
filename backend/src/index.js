@@ -3,14 +3,15 @@ const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors')
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
 
-
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
 
 //Routes
 app.use(require('./routes/index'));
@@ -22,9 +23,7 @@ app.use(express.static(path.join(__dirname, '..', '..', 'frontend', 'build')));
 let people = [];
 
 io.on('connection', socket => {
-
     let name;
-
     socket.on('users', (n) => {
         people = n;
     });
@@ -45,7 +44,6 @@ io.on('connection', socket => {
         socket.broadcast.emit('messages', {sever: 'server', message: `${name} has left the chatroom`});
         io.emit('users', people);
     });
-
 });
 
 //Server
