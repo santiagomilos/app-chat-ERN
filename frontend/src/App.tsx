@@ -28,12 +28,50 @@ function App() {
     const subscription = async () => {
 
         //service worker
-        const register = await navigator.serviceWorker.register('./worker.js');
-        
-        const subscription = await register.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
-        });
+        const register =
+            await navigator.serviceWorker.register('./worker.js')
+                .then(function(registration) {
+                    return registration;
+                })
+                .catch(function(err) {
+                    console.error('Unable to register service worker.', err);
+                });
+        //const register = await navigator.serviceWorker.register('./worker.js');
+
+        const askPermission =
+            new Promise(function(resolve, reject) {
+                const permissionResult = Notification.requestPermission(function(result) {
+                    resolve(result);
+                });
+
+                if (permissionResult) {
+                    permissionResult.then(resolve, reject);
+                }
+            })
+                .then(function(permissionResult) {
+                    if (permissionResult !== 'granted') {
+                        throw new Error('We werent granted permission.');
+                    }
+                });
+
+        const subscription =
+            await navigator.serviceWorker.register('/worker.js')
+                .then(function(registration) {
+                    const subscribeOptions = {
+                        userVisibleOnly: true,
+                        applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+                    };
+
+                    return registration.pushManager.subscribe(subscribeOptions);
+                })
+                .then(function(pushSubscription) {
+                    return pushSubscription;
+                });
+
+        // const subscription = await register.pushManager.subscribe({
+        //     userVisibleOnly: true,
+        //     applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+        // });
 
         let url = `${window.location.protocol}//${window.location.hostname}:3000/subscription`;
        await fetch(url, {
