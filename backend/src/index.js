@@ -3,7 +3,8 @@ const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 const path = require('path');
-const cors = require('cors')
+const cors = require('cors');
+
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
@@ -39,6 +40,18 @@ io.on('connection', socket => {
         io.emit('messages', {name, message});
     });
 
+    socket.on('copying', (name) => {
+        socket.broadcast.emit('copying', name);
+    });
+
+    socket.on('stop_copying', (name) => {
+        socket.broadcast.emit('stop_copying', name);
+    });
+
+    socket.on('file', (message) => {
+        io.emit('file', message);
+    });
+
     socket.on('disconnect', () => {
         people = people.filter((n) => n !== name);
         socket.broadcast.emit('messages', {sever: 'server', message: `${name} has left the chatroom`});
@@ -46,7 +59,8 @@ io.on('connection', socket => {
     });
 });
 
-//Server
+
+//server
 server.listen(3000, () => {
-   console.log('server on port 3000');
+    console.log('server on port 3000');
 });

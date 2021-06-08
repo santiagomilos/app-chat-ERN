@@ -123,3 +123,43 @@ body {
     font-size: 10px;
     color: #86bb71;
 }
+
+.dot-typing {
+    position: relative;
+    left: -9980px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: white;
+    color: white;
+    box-shadow: 9984px 0 0 0 white, 9999px 0 0 0 white, 10014px 0 0 0 white;
+    animation: dotTyping 1.5s infinite linear;
+}
+
+@keyframes dotTyping {
+    0% {
+        box-shadow: 9984px 0 0 0 white, 9999px 0 0 0 white, 10014px 0 0 0 white;
+    }
+    16.667% {
+        box-shadow: 9984px -10px 0 0 white, 9999px 0 0 0 white, 10014px 0 0 0 white;
+    }
+    33.333% {
+        box-shadow: 9984px 0 0 0 white, 9999px 0 0 0 white, 10014px 0 0 0 white;
+    }
+    50% {
+        box-shadow: 9984px 0 0 0 white, 9999px -10px 0 0 white, 10014px 0 0 0 white;
+    }
+    66.667% {
+        box-shadow: 9984px 0 0 0 white, 9999px 0 0 0 white, 10014px 0 0 0 white;
+    }
+    83.333% {
+        box-shadow: 9984px 0 0 0 white, 9999px 0 0 0 white, 10014px -10px 0 0 white;
+    }
+    100% {
+        box-shadow: 9984px 0 0 0 white, 9999px 0 0 0 white, 10014px 0 0 0 white;
+    }
+}
+
+.img-message{
+    border-radius: 50px;
+}

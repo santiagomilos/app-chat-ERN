@@ -1,40 +1,37 @@
-.App {
-  text-align: center;
+body{
+  /*animation: scroll 70s linear infinite;*/
+  /*background-image: url('https://cdn.pixabay.com/photo/2015/09/16/16/59/hexagon-background-942982_960_720.png');*/
+  /*background-image: url('https://img.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg?size=626&ext=jpg');*/
+  /*background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/email-pattern.png');*/
+  background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/email-pattern.png');
+  background-repeat: repeat;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/*@keyframes scroll {*/
+/*  100%{*/
+/*    background-position:0px -3000px;*/
+/*  }*/
+/*}*/
+
+/*@media (prefers-reduced-motion) {*/
+/*  body{*/
+/*    animation: scroll 200s linear infinite;*/
+/*  }*/
+/*}*/
+
+#scene{
+  position: absolute !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.parallax-1{
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f6e6fa48-d5b6-401e-af48-e70ae46b674e/dd7akgt-1ae0739a-dc70-4093-ae0c-97bdcfd1af43.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2Y2ZTZmYTQ4LWQ1YjYtNDAxZS1hZjQ4LWU3MGFlNDZiNjc0ZVwvZGQ3YWtndC0xYWUwNzM5YS1kYzcwLTQwOTMtYWUwYy05N2JkY2ZkMWFmNDMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.rJ9BkT7uvpiEMrR4vOM9JqFUCyOZ1nWWtno_aMqLRlc');
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  width: 500px;
+  height: 500px;
+  position: absolute;
 }
 
 textarea {
@@ -61,3 +58,11 @@ textarea {
 }
 
 .dropdown:hover .dropdown-content {display: block;}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  cursor: pointer;
+}

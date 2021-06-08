@@ -3,6 +3,7 @@ import Socket from './components/Socket';
 import Chat from "./components/Chat";
 import  './worker';
 import {chatOpen} from './Anime';
+import './Parallax';
 import './App.css';
 
 
@@ -114,15 +115,15 @@ function App() {
     <div className="App">
         {
             !registered &&
-
             <div className="container content form-name">
                 <div className="row h-100 justify-content-center">
-                    <div className="col-6 my-auto">
+                    <div className="col-lg-6 col-12 my-auto">
                         <div className="card card-block shadow">
+                            <div className="card-header text-center">Chat | SantiMilos</div>
                             <div className="card-body">
                                 <form onSubmit={register}>
-                                    <label className="form-label">Name</label>
-                                    <input className="form-control " type="text" value={name} onChange={e => setName(e.target.value)}/>
+                                    <input className="form-control" placeholder="Name" type="text" value={name} onChange={e => setName(e.target.value)}/>
+                                    <small className="text-muted fst-italic pt-2">Please enter a name to identify yourself in the chat room</small>
                                 </form>
                             </div>
                         </div>
@@ -130,7 +131,6 @@ function App() {
                 </div>
             </div>
         }
-
         {
             registered &&
 
